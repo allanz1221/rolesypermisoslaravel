@@ -197,6 +197,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         Spatie\Tags\TagsServiceProvider::class,
         JeroenNoten\LaravelAdminLte\AdminLteServiceProvider::class,
+        App\Providers\AdminLteServiceProvider::class,
+
     ],
 
     /*

@@ -27,18 +27,8 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/home';
 
-    protected function authenticated(Request $request, $user)
-    {
-        // Verifica el rol del usuario y redirige en consecuencia
-        if ($user->hasRole('admin')) {
-            return redirect()->route('users.index');
-        } else {
-            return redirect()->route('home');
-        }
+            
 
-        // Redirección por defecto si no coincide ningún rol específico
-        return redirect('/home');
-    }
     /**
      * Create a new controller instance.
      *

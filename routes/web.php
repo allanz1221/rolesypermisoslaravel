@@ -4,6 +4,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\UserController;
 
+
+use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\RequestController;
+
+Route::resource('materials', MaterialController::class);
+Route::resource('requests', RequestController::class)->middleware('auth');
+Route::get('/materiales/search', [MaterialController::class, 'search'])->name('materials.search');
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,8 +22,8 @@ use App\Http\Controllers\UserController;
 |
 */
 Route::get('/', function () {
-        return view('index');
-});
+    return view('index');
+})->middleware('auth');
 
 Route::resource('/perfil', PerfilController::class)->names('perfil');
 
@@ -29,3 +36,8 @@ Route::get('/admin', function () {
 })->middleware('role:admin');
 
 Route::resource('users', UserController::class)->names('users');
+
+
+Route::patch('/requests/{request}/change-status/{newStatus}', [RequestController::class, 'changeStatus'])
+    ->name('requests.changeStatus')
+    ->middleware('auth');

@@ -1,6 +1,7 @@
-@extends('layouts.app')
+@extends('adminlte::auth.login')
+@section('title', 'Dashboard')
 
-@section('content')
+@section('content') 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">

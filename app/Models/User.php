@@ -51,4 +51,15 @@ class User extends Authenticatable
     {
         return $this->roles()->where('name', $role)->exists();
     }
+
+    public function hasPermissionToChangeStatus($status)
+    {
+        // Aquí puedes implementar tu lógica de permisos
+        // Por ejemplo, solo admin y editor pueden aprobar o rechazar
+        if (in_array($status, ['Aprobado', 'Rechazado','Concluido']) && !in_array($this->rol, ['Admin', 'Laboratorio'])) {
+            return false;
+        }
+        
+        return true;
+    }
 }

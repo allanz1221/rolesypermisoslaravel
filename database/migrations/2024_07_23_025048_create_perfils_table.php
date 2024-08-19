@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('perfils', function (Blueprint $table) {
             $table->id();
             $table->text('carrera');
+            $table->text('expediente');
             $table->timestamps();
         });
     }
