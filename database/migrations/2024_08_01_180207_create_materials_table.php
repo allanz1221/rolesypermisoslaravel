@@ -16,8 +16,18 @@ return new class extends Migration
         Schema::create('materials', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('marca')->nullable();
+            $table->string('modelo')->nullable();
+            $table->string('noserie')->nullable();
+            $table->string('noactivo')->nullable();
+            $table->string('numfactura')->nullable();
+            $table->string('ubicacion')->nullable();
+            $table->string('costo')->nullable();
+            $table->string('foto')->nullable();
+            $table->enum('estado', ['Bueno', 'Malo'])->default('Bueno');
+            $table->enum('ocupado', ['si', 'no'])->default('no');
             $table->text('description')->nullable();
-            $table->integer('quantity');
+            $table->integer('quantity')->nullable();
             $table->timestamps();
         });
     }
