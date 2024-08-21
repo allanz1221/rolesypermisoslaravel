@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('x')->unique()->nullable();
             $table->string('tiktok')->unique()->nullable();
             $table->string('instagram')->unique()->nullable();;
-            $table->enum('pe', ['IIM', 'IM','Otro'])->default('Otro');
+            $table->enum('pe', ['IIM', 'IM','IS','Otro'])->default('Otro');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

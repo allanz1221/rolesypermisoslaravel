@@ -26,6 +26,33 @@ class UserController extends Controller
         $this->middleware('role:admin');
     }
 
+    public function store(Request $request)
+    {
+        // Validar los datos de entrada
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'expediente' => 'required|string|unique:users,expediente',
+            'password' => 'required|string|min:8',
+            'pe' => 'required|string|max:255',
+            'rol' => 'required|string|max:255',
+        ]);
+
+        // Crear el usuario
+        $user = User::create([
+            'name' => $request->name,
+            'expediente' => $request->expediente,
+            'password' => Hash::make($request->password), // Encriptar la contraseña
+            'pe' => $request->pe,
+            'rol' => $request->rol,
+        ]);
+
+        // Devolver la respuesta en formato JSON
+        return response()->json([
+            'message' => 'Usuario creado exitosamente',
+            'user' => $user
+        ], 201);
+    }
+
     public function index()
     {
         //

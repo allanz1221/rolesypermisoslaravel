@@ -12,6 +12,7 @@ class DefaultUserSeeder extends Seeder
     {
         User::create([
             'name' => 'Alan',
+            'expediente' =>'6800',
             'email' => 'alan@alan.com',
             'password' => Hash::make('alan'),
             'rol' => 'Laboratorio', // Asumiendo que tienes un campo 'rol' en tu tabla de usuarios
