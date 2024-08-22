@@ -41,7 +41,6 @@
             </tbody>
         </table>
 
-        {{ $materials->links() }}
     </div>
 
     <script>
