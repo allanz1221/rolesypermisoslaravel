@@ -7,10 +7,11 @@ use App\Http\Controllers\UserController;
 
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\RequestController;
+use App\Http\Controllers\HomeController;
 
 Route::resource('materials', MaterialController::class)->middleware('auth');
 Route::resource('requests', RequestController::class)->middleware('auth');
-Route::get('/materiales/search', [MaterialController::class, 'search'])->name('materials.search');
+Route::get('/materiales/search', [HomeController::class, 'search'])->name('materials.search');
 /*
 |--------------------------------------------------------------------------
 | Web Routes

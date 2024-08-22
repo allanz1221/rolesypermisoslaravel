@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Material;
 use App\Http\Requests\MaterialRequest;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request; // Asegúrate de tener esta línea
+use Illuminate\Support\Facades\Auth; // También esta línea para el manejo de autenticación
 
 /**
  * Class MaterialController
@@ -95,13 +96,5 @@ class MaterialController extends Controller
             ->with('success', 'Material deleted successfully');
     }
 
-        public function search(Request $request)
-    {
-        $term = $request->input('q');
-        $materials = Material::where('name', 'LIKE', "%$term%")->get();
-        
-        return $materials->map(function($material) {
-            return ['id' => $material->id, 'text' => $material->name];
-        });
-    }
+
 }

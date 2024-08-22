@@ -33,15 +33,15 @@ class RequestController extends Controller
     }
 
     public function index()
-{
-    $user = Auth::user();
-    if($user->rol == "Admin" || $user->rol == "Laboratorio"){
-        $requests = Request::orderBy('created_at', 'desc')->get();
-    } else {
-        $requests = Request::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+    {
+        $user = Auth::user();
+        if($user->rol == "Admin" || $user->rol == "Laboratorio"){
+            $requests = Request::orderBy('created_at', 'desc')->get();
+        } else {
+            $requests = Request::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+        }
+        return view('requests.index', compact('requests'));
     }
-    return view('requests.index', compact('requests'));
-}
 
 
     public function create()
