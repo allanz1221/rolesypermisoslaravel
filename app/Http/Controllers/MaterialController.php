@@ -1,89 +1,101 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Material;
+use App\Http\Requests\MaterialRequest;
+use Illuminate\Support\Facades\Auth;
 
-use Illuminate\Http\Request;
-
+/**
+ * Class MaterialController
+ * @package App\Http\Controllers
+ */
 class MaterialController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
+
+ public function __construct()
+    {
+        // Aplica la verificación de rol a todas las rutas
+        $this->middleware(function ($request, $next) {
+            if (!in_array(Auth::user()->rol, ['Admin', 'Laboratorio'])) {
+                return redirect()->route('home')->with('error', 'No tienes permiso para acceder a esta sección.');
+            }
+            return $next($request);
+        });
+    }
+
+    
     public function index()
     {
-        //
+        $materials = Material::paginate();
+
+        return view('material.index', compact('materials'))
+            ->with('i', (request()->input('page', 1) - 1) * $materials->perPage());
     }
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        $material = new Material();
+        return view('material.create', compact('material'));
     }
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MaterialRequest $request)
     {
-        //
+        Material::create($request->validated());
+
+        return redirect()->route('materials.index')
+            ->with('success', 'Material created successfully.');
     }
 
     /**
      * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+        $material = Material::find($id);
+
+        return view('material.show', compact('material'));
     }
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $material = Material::find($id);
+
+        return view('material.edit', compact('material'));
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MaterialRequest $request, Material $material)
     {
-        //
+        $material->update($request->validated());
+
+        return redirect()->route('materials.index')
+            ->with('success', 'Material updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        Material::find($id)->delete();
+
+        return redirect()->route('materials.index')
+            ->with('success', 'Material deleted successfully');
     }
 
-    public function search(Request $request)
+        public function search(Request $request)
     {
         $term = $request->input('q');
         $materials = Material::where('name', 'LIKE', "%$term%")->get();

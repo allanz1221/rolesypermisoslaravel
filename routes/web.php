@@ -8,7 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\RequestController;
 
-Route::resource('materials', MaterialController::class);
+Route::resource('materials', MaterialController::class)->middleware('auth');
 Route::resource('requests', RequestController::class)->middleware('auth');
 Route::get('/materiales/search', [MaterialController::class, 'search'])->name('materials.search');
 /*
