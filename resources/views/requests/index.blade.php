@@ -45,6 +45,11 @@
     <a href="{{ route('requests.create') }}" class="btn btn-primary"
         >Nueva solicitud</a
     >
+    @if(auth()->user()->rol == 'admin' || auth()->user()->rol == 'Laboratorio' )
+                          <a href="{{ route('materials.index') }}" class="btn btn-primary"
+        >Matariales</a
+    >
+                        @endif 
 
     <select id="estadoFilter">
         <option value="">Todos</option>

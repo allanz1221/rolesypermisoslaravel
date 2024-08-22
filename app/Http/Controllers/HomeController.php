@@ -25,7 +25,21 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('index');
+  $sections = [
+            ['title' => 'Manuales', 'description' => 'Accede a manuales y guías.', 'link' => route('manuales')],
+            ['title' => 'Tutorías', 'description' => 'Encuentra tutorías disponibles.', 'link' => route('tutorias')],
+            ['title' => 'PASA', 'description' => 'Información sobre PASA.', 'link' => route('pasa')],
+            ['title' => 'Egresados', 'description' => 'Recursos para egresados.', 'link' => route('egresados')],
+            ['title' => 'Impresoras 3D', 'description' => 'Accede a recursos de impresión 3D.', 'link' => route('impresoras3d')],
+            ['title' => 'Horarios', 'description' => 'Consulta los horarios.', 'link' => route('horarios')],
+            ['title' => 'Servicio Social', 'description' => 'Información sobre el servicio social.', 'link' => route('servicio-social')],
+            ['title' => 'Prácticas Profesionales', 'description' => 'Recursos para prácticas profesionales.', 'link' => route('practicas-profesionales')],
+            ['title' => 'Notas', 'description' => 'Consulta las notas.', 'link' => route('notas')],
+            ['title' => 'Prácticas de Campo', 'description' => 'Recursos para prácticas de campo.', 'link' => route('practicas-de-campo')],
+            ['title' => 'Mercado Libre', 'description' => 'Accede a recursos de Mercado Libre.', 'link' => route('mercado-libre')],
+            ['title' => 'Solicitudes de Material de Laboratorio', 'description' => 'Solicita materiales de laboratorio.', 'link' => route('requests.index')],
+        ];
+        return view('index', compact('sections'));
     }
 
     public function search(Request $request)
